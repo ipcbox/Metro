@@ -1,0 +1,1 @@
+jQuery(document).ready(function($){$('.btn_list_button').click(function(){$(this).next().slideToggle()});$(".itembody a.itemlink").colorTip({});$('.waterfall').imagesLoaded(function(){$('.waterfall').masonry({itemSelector:'.waterfall>.item,.waterfall>.blankItem'});$('.waterfall_loading').hide();$('.waterfall').css('visibility','visible').hide().fadeIn()})});

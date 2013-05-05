@@ -1,0 +1,53 @@
+body{font:normal 15px "\5fae\8f6f\96c5\9ed1",Verdana,Arial,Helvetica,sans-serif;color:#494949;word-break: break-all; word-wrap: break-word;max-width:660px;margin: 0 auto;}
+img{max-width:660px;_width:expression(width>660?"660px":"width")}
+img:hover{background-color: #fbfbfb;border-color: #ddd;}
+.img-align{display:block;margin-left:auto;margin-right:auto}
+img.aligncenter{margin:0 auto;display:block;text-align:center}
+img.alignleft{float:left;margin-right:15px;margin-bottom:15px}
+img.alignright{float:right;margin-left:15px;margin-bottom:15px}
+h1,h2,h3,h4{margin:0;padding:0;e border:0}
+h3{background:#f1f7fd;border:1px solid #d2e8fa;color:#666;padding:5px 5px 5px 10px;margin:20px 0;font-weight:bold;font-size:15px}
+h4{border-bottom:1px solid #ccc;border-left:5px solid #d2e8fa;color:#000;display:block;margin:19px 0 0 0;padding:0 0 5px 10px}
+ul,ol{padding-left:30px;margin:15px 0 15px 0}
+ul li{list-style-type:square}
+ol li{list-style-type:square}
+p{margin:15px 0 0 0;line-height:28px}
+code{padding:1px 4px;border-radius:2px;background-color:#eee;font-family:'courier new';color:#777;margin:0 4px}
+table{border-top:solid 1px #ddd;border-left:solid 1px #ddd;width: 100%;margin-bottom: 16px;}
+table th{background-color:#f9f9f9;text-align:center}
+table td,table th{border-bottom:solid 1px #ddd;border-right:solid 1px #ddd;padding:5px 10px}
+.alignleft{float:left;text-align:left;margin-right:10px}
+.aligncenter{text-align:center}
+.alignright{float:right;text-align:right;margin-left:10px}
+
+.btn-demo{
+	display: inline-block;
+	padding: 15px 30px;
+	font-size: 15px;
+	line-height: 18px;
+	color: #444;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0 1px 1px #ccc;
+	background-color: #e6e6e6;
+	background-image: -webkit-linear-gradient(top, #fbfbfb, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #fbfbfb, #e6e6e6);
+	background-image: -ms-linear-gradient(top, #fbfbfb, #e6e6e6);
+	border: 1px solid #ccc;
+	border-bottom-color: #bbb;
+	border-radius: 1px;
+	box-shadow: 0 2px 2px #ddd;
+}
+.btn-demo:hover{
+	background:#f6f6f6;
+	color: #333; 
+}
+.btn-demo:active{
+	background:#f6f6f6;
+	color: #555; 
+	box-shadow: inset 0 2px 4px #ddd;
+}
+
+pre{margin:15px auto;font:12px/20px 'courier new';border:1px solid #d6d6d6;border-left-width:4px;background:#fbfbfb;padding:10px 15px}
+blockquote{border:1px solid #dbe5f1;background:#f9fafc;margin:5px 0;padding:5px 15px}
+blockquote p{margin:0}
