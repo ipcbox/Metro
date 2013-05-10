@@ -1,7 +1,6 @@
 <?php
 error_reporting(0);
 define( 'ABSPATH', dirname(dirname(__FILE__)) . '/' );
-
 function get_file($path) {
 
 	if ( function_exists('realpath') )
@@ -35,16 +34,6 @@ foreach( $load as $handle ) {
 	                $images[$url] = $paths;
 				}
 			}
-        }
-
-        // check if image exists and filesize < 10kb
-        foreach ($images as $url => $paths) {
-		    $userAgent = strtolower($_SERVER["HTTP_USER_AGENT"]);
-			if (ereg("msie 5", $userAgent) || ereg("msie 6", $userAgent) || ereg("msie 7", $userAgent))
-	            exit;
-            elseif (filesize($paths) <= 10240 && preg_match('/\.(gif|png|jpg)$/i', $paths, $extension)) {
-               $content= str_replace($url, sprintf('url(data:image/%s;base64,%s)', str_replace('jpg', 'jpeg', strtolower($extension[1])), base64_encode(file_get_contents($paths))), $content);
-            }
         }
 	$out .= str_replace( 'images/', '../images/', $content );
 }

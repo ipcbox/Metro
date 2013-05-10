@@ -257,7 +257,6 @@ function dm_the_thumbnail() {
     } else {
         $content = $post->post_content;  
         preg_match_all('/<img.*?(?: |\\t|\\r|\\n)?src=[\'"]?(.+?)[\'"]?(?:(?: |\\t|\\r|\\n)+.*?)?>/sim', $content, $strResult, PREG_PATTERN_ORDER); 
-        $random = mt_rand(1, 20);		
         $n = count($strResult[1]);  
         if($n > 0){
             echo '<img width="140" height="100" src="'.$strResult[1][0].'" alt="'.trim(strip_tags( $post->post_title )).'" />';  
