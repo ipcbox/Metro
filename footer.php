@@ -46,4 +46,3 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/
 <script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/lib/load-scripts.php?c=1&load=realgravatar%2CcolorTip%2Choveraccordion&ver=1.28"></script>
 </body>
 </html>
-<?php endif;?>
