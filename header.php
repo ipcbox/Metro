@@ -90,4 +90,3 @@ $permalink = get_permalink($post->ID);?>
 </div>				
 </div>
 <?php } ?>
-<?php endif;?>
