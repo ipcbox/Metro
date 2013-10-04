@@ -1,6 +1,3 @@
-<?php if(ISMOBILE && !isset($_COOKIE['force_normal_theme'])): ?>
- <?php include('mobile/comments.php'); ?>
- <?php else:?>
 <?php // Do not delete these lines
 	if ('comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
 		die ('Please do not load this page directly. Thanks!');
@@ -73,4 +70,3 @@
 		<p class="nocomments">评论已关闭！</p>
 <?php endif; ?>
 </div><!-- #comments -->
-<?php endif;?>
