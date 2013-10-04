@@ -299,37 +299,6 @@ echo get_bloginfo('template_url').'/img/thumbnail.png';
 } 
 } 
 }
-if (function_exists('register_sidebar'))
-{
-    register_sidebar(array(
-		'name'			=> '小工具1',
-        'before_widget'	=> '',
-        'after_widget'	=> '',
-        'before_title'	=> '<h3>',
-        'after_title'	=> '</h3>',
-    	'after_widget' => '',
-    ));
-}
-{
-    register_sidebar(array(
-		'name'			=> '小工具2',
-        'before_widget'	=> '',
-        'after_widget'	=> '',
-        'before_title'	=> '<h3>',
-        'after_title'	=> '</h3>',
-    	'after_widget' => '',
-    ));
-}
-{
-    register_sidebar(array(
-		'name'			=> '小工具3',
-        'before_widget'	=> '',
-        'after_widget'	=> '',
-        'before_title'	=> '<h3>',
-        'after_title'	=> '</h3>',
-    	'after_widget' => '',
-    ));
-}
 
 if ( function_exists('register_nav_menus') ) {
     register_nav_menus(array(
@@ -673,32 +642,49 @@ function dtheme_avatar($avatar) {
     copy(get_bloginfo('template_directory').'/images/gravatar.png', $e);
   return $avatar;
 }
-if ( ! function_exists( 'zipe_comment' ) ) :
-function zipe_comment( $comment, $args, $depth ) {
-	$GLOBALS['comment'] = $comment;
-	?>
-	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>" itemprop="review" itemscope itemtype="http://schema.org/Review">
-			<div class="comments_meta">
-				<div class="avatar_box">
-				<div class="avatar_img" style="background-image:url('<?php echo dtheme_avatar_url($comment->comment_author_email); ?>')">
-                </div></div></div>
-					<div class="comment_text">
-                    <span class="comment_author_name">
-                    <span itemprop="author"><?php comment_author(); ?></span> 说：</span>
-					<?php if ( $comment->comment_approved == '0' ) : ?>
-						<em class="comment-awaiting-moderation" title="<?php comment_time('Y-n-j H:i') ?>">您的评论正在排队审核中</em>
-					<?php else : ?>
-						<meta itemprop="datePublished" content="<?php comment_time('Y-n-j H:i') ?>" />
-					<?php endif; ?>
-				<?php if ( $comment->comment_approved != '0' && !$parent_id = $comment->comment_parent) : ?>
-				<?php comment_reply_link( array_merge( $args, array( 'add_below' => 'li-comment','depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?><!-- .reply -->
-			<?php endif; ?></span>
-				<span itemprop="reviewBody"><p><?php comment_text(); ?></p>
-				</span></div></li>
-	<?php
-}
-endif;
 // 评论回复/头像缓存
+function metro_comment($comment, $args, $depth) {
+   $GLOBALS['comment'] = $comment;
+global $commentcount,$wpdb, $post;
+     if(!$commentcount) { //初始化楼层计数器
+          $comments = $wpdb->get_results("SELECT * FROM $wpdb->comments WHERE comment_post_ID = $post->ID AND comment_type = '' AND comment_approved = '1' AND !comment_parent");
+          $cnt = count($comments);//获取主评论总数量
+          $page = get_query_var('cpage');//获取当前评论列表页码
+          $cpp=get_option('comments_per_page');//获取每页评论显示数量
+         if (ceil($cnt / $cpp) == 1 || ($page > 1 && $page  == ceil($cnt / $cpp))) {
+             $commentcount = $cnt + 1;//如果评论只有1页或者是最后一页，初始值为主评论总数
+         } else {
+             $commentcount = $cpp * $page + 1;
+         }
+     }
+
+echo '<li class="comment" id="comment-'.get_comment_ID().'"  itemprop="review" itemscope itemtype="http://schema.org/Review">';
+echo '<div class="comments_meta">';
+      echo '<div class="avatar_box"><div style="width:48px;height:48px;background:url('. dtheme_avatar_url($comment->comment_author_email) .') no-repeat"></div> </div></div>
+		<div class="comment_text">';
+                   echo '<span class="comment_author_name">';
+                   echo '<span itemprop="author">'. get_comment_author_link() .'</span> 说：</span><div class="c-floor">';
+				    if(!$parent_id = $comment->comment_parent){
+                       switch ($commentcount){
+                       case 2 :echo "沙发";--$commentcount;break;
+                       case 3 :echo "板凳";--$commentcount;break;
+                       case 4 :echo "地板";--$commentcount;break;
+                       default:printf('%1$s楼', --$commentcount);
+                       }
+                    }
+                   echo '</div><span class="comment_reply_links">';
+                   printf('<script language="javascript">/*<![CDATA[*/document.write("<span class=\"comment_time\">写于"+timeAgo(%1$s)+"</span>");/*]]>*/</script>', get_comment_time('U') );
+                   if ($comment->comment_approved !== '0' && !$parent_id = $comment->comment_parent){ echo comment_reply_link(array_merge( $args, array('reply_text' => '[回复他/她]', 'add_below' => 'comment', 'depth' => $depth, 'max_depth' => $args['max_depth'])));echo edit_comment_link(__('(编辑)'),' - ','');}
+					echo '</span><span itemprop="reviewBody">';
+            	if ( $comment->comment_approved == '0' ){
+			echo '<span style="color:#C00; font-style:inherit">您的评论正在排队审核中，请稍后...</span>
+			<br />';}
+		echo comment_text() .'</span></div>';
+
+}
+function metro_end_comment() {
+		echo '</li>';
+}
 
 //登陆显示头像
 function metro_get_avatar($email, $size = 48){
